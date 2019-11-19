@@ -1,0 +1,4 @@
+task groovy  {}
+
+def foo="bar"
+println "$foo + foo = ${foo + "foo"}"

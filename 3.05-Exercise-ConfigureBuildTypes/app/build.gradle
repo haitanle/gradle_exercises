@@ -20,8 +20,8 @@ Exercises:
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    compileSdkVersion 28
+    buildToolsVersion "29.0.2"
 
     defaultConfig {
         applicationId "com.udacity.gradle.buildtypes"
@@ -34,6 +34,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            applicationIdSuffix "debug"
+            debuggable true
         }
     }
 }
@@ -49,5 +54,5 @@ To use our solution, uncomment the following line.
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:appcompat-v7:28.0.0'
 }

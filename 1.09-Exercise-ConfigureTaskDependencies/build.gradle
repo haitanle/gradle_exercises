@@ -39,6 +39,7 @@ task brew {
 }
 
 task pour {
+    dependsOn "brew"
     doLast {
         println "Pouring. Glug, glug, glug."
     }
@@ -51,6 +52,7 @@ task addSweetener {
 }
 
 task drink {
+    dependsOn "pour"
     doLast {
         println "Drinking. Gulp, gulp, gulp."
     }
