@@ -22,6 +22,16 @@
         android:onClick="tellJoke"
         android:text="@string/button_text" />
 
+    <TextView
+        android:id="@+id/joke_textView"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/instructions_text_view"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="102dp"
+        android:layout_marginBottom="-176dp"
+        android:text="This is a new joke for you" />
+
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="wrap_content"

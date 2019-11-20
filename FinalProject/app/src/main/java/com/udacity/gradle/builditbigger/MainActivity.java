@@ -10,10 +10,10 @@ import androidx.core.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jokelibrary.JokeActivity;
-//import com.example.lib.Jokes;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
@@ -22,16 +22,20 @@ import com.udacity.gradle.builditbigger.backend.MyEndpoint;
 import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    public TextView jokeTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
+        jokeTextView = (TextView) findViewById(R.id.joke_textView);
+
     }
 
 
@@ -57,18 +61,24 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     public void tellJoke(View view) {
 
         Intent intent = new Intent(this, JokeActivity.class);
-        //Jokes joke = new Jokes();
 
-        //intent.putExtra("joke", joke.getJoke());
+        // get the joke from GAE
+        String joke = "No joke";
+        try {
+            joke =  new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred")).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
-
-        //startActivity(intent);
-
-        //Toast.makeText(this, joke.getJoke(), Toast.LENGTH_SHORT).show();
+        // pass joke to Android Library to display
+        intent.putExtra("joke", joke);
+        startActivity(intent);
     }
 
 
@@ -108,8 +118,13 @@ class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> 
         }
     }
 
+
+
     @Override
     protected void onPostExecute(String result) {
-        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+
+        // Toast.makeText(context, result, Toast.LENGTH_LONG).show();
     }
+
+
 }
