@@ -27,7 +27,7 @@ public class MyEndpoint {
 
         Jokes jokes = new Jokes();
 
-        response.setData("Hi, " + jokes.getJoke());
+        response.setData(jokes.getJoke());
         return response;
     }
 
